@@ -99,7 +99,8 @@ void uncaughtExceptionHandler(NSException *exception) {
     NSError *error = nil;
     NSString *name = [[WDPaintingManager sharedInstance] installPaintingFromURL:url error:&error];
 
-    if (!name) {
+    if (!name)
+    {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Broken Painting", @"Broken Painting")
                                                             message:NSLocalizedString(@"Brushes could not open the requested painting.", @"Brushes could not open the requested painting.")
                                                            delegate:nil

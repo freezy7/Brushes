@@ -369,6 +369,7 @@ NSString *WDPaintingNewFilenameKey = @"WDPaintingNewFilenameKey";
 
 - (NSURL *) urlForName:(NSString *)name
 {
+    NSLog(@"path = %@",[self pathForName:name]);
     return [NSURL fileURLWithPath:[self pathForName:name]];
 }
 

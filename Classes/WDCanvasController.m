@@ -1600,15 +1600,21 @@
 
 - (void) documentStateChanged:(NSNotification *)aNotification
 {
+    NSLog(@"docState = %lu",self.document.documentState);
     if (self.document && self.document.documentState == UIDocumentStateNormal) {
-        if (self.painting) {
-            if (canvas_) {
-                if (replayScale) {
+        if (self.painting)
+        {
+            if (canvas_)
+            {
+                if (replayScale)
+                {
                     [self.canvas adjustForReplayScale:(1.0f / replayScale.floatValue)];
                     self.replayScale = nil;
                 }
                 canvas_.painting = self.painting;
-            } else {
+            }
+            else
+            {
                 canvas_ = [[WDCanvas alloc] initWithFrame:self.view.bounds];
                 canvas_.painting = self.painting;
                 canvas_.controller = self;
@@ -1618,7 +1624,8 @@
                 [self.view insertSubview:canvas_ atIndex:0];
             }
             
-            if (!canvas_.hasEverBeenScaledToFit) {
+            if (!canvas_.hasEverBeenScaledToFit)
+            {
                 [canvas_ scaleDocumentToFit:NO];
             }
             
