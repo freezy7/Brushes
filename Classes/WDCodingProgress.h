@@ -18,8 +18,8 @@ extern NSString *WDCodingProgressNotification;
 @interface WDCodingProgress : NSObject
 
 @property (atomic) BOOL cancel;
-@property (atomic) int completed;
-@property (atomic) int total;
+@property (atomic) NSUInteger completed;
+@property (atomic) NSUInteger total;
 
 - (float) progress; // 0 to 1
 - (void) reset;

@@ -11,6 +11,7 @@
 
 #import "WDTexture.h"
 #import "WDUtilities.h"
+#import "Shaders.h"
 
 @interface WDTexture (Private)
 - (void) loadTextureFromImage:(CGImageRef)image forceRGB:(BOOL)forceRGB;

@@ -10,6 +10,7 @@
 //
 
 #import "WDGLUtilities.h"
+#import "Shaders.h"
 
 void WDGLBuildQuadForRect(CGRect rect, CGAffineTransform transform, GLuint *quadVAO, GLuint *quadVBO)
 {

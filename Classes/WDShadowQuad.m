@@ -13,6 +13,7 @@
 #import "WDGLUtilities.h"
 #import "WDTexture.h"
 #import "WDShader.h"
+#import "Shaders.h"
 
 @interface WDShadowQuad ()
 @property (nonatomic) WDTexture *texture;

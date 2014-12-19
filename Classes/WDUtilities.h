@@ -77,7 +77,7 @@ CGRect WDShrinkRect(CGRect rect, float percentage);
 CGAffineTransform WDTransformForOrientation(UIInterfaceOrientation orientation);
 
 float WDRandomFloat();
-int WDRandomIntInRange(int min, int max);
+int WDRandomIntInRange(NSUInteger min, NSUInteger max);
 float WDRandomFloatInRange(float min, float max);
 
 CGRect WDUnionRect(CGRect a, CGRect b);
