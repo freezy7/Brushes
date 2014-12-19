@@ -16,14 +16,14 @@
 NSString *WDCodingProgressNotification = @"WDCodingProgressNotification";
 
 @implementation WDCodingProgress {
-    int completed_;
+    NSUInteger completed_;
     float lastReported_;
-    int total_;
+    NSUInteger total_;
 }
 
 @synthesize cancel;
 
-- (void) setCompleted:(int)completed ofTotal:(int)total
+- (void) setCompleted:(NSUInteger)completed ofTotal:(NSUInteger)total
 {
     @synchronized(self) {
         if (completed != completed_ || total != total_) {
@@ -37,22 +37,22 @@ NSString *WDCodingProgressNotification = @"WDCodingProgressNotification";
     }
 }
 
-- (int) completed
+- (NSUInteger) completed
 {
     return completed_;
 }
 
-- (void) setCompleted:(int)completed
+- (void) setCompleted:(NSUInteger)completed
 {
     [self setCompleted:completed ofTotal:total_];
 }
 
-- (int) total
+- (NSUInteger) total
 {
     return total_;
 }
 
-- (void) setTotal:(int)total
+- (void) setTotal:(NSUInteger)total
 {
     [self setCompleted:completed_ ofTotal:total];
 }

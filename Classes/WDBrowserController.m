@@ -33,7 +33,8 @@
 
 static NSString *WDAttachmentNotification = @"WDAttachmentNotification";
 
-@implementation WDBrowserController {
+@implementation WDBrowserController
+{
     UIImageView *snapshotBeforeRotation;
     UIImageView *snapshotAfterRotation;
     CGRect frameBeforeRotation;
@@ -46,6 +47,7 @@ static NSString *WDAttachmentNotification = @"WDAttachmentNotification";
 @synthesize activityIndicator;
 @synthesize gridView;
 
+#pragma mark - 自定义 navBar
 - (void) buildDefaultNavBar
 {
     [self updateTitle];
@@ -61,13 +63,16 @@ static NSString *WDAttachmentNotification = @"WDAttachmentNotification";
                                                                                 action:@selector(showDropboxImportPanel:)];
     
     UIBarButtonItem *cameraItem = nil;
-    if (ALLOW_CAMERA_IMPORT && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+    if (ALLOW_CAMERA_IMPORT && [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
         cameraItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera
                                                                    target:self
                                                                    action:@selector(importFromCamera:)];
         self.navigationItem.rightBarButtonItems = @[addItem, importItem, cameraItem];
         
-    } else {
+    }
+    else
+    {
         self.navigationItem.rightBarButtonItems = @[addItem, importItem];
     }
     
@@ -220,6 +225,8 @@ static NSString *WDAttachmentNotification = @"WDAttachmentNotification";
     self.navigationItem.leftBarButtonItem = leftItem;
 }
 
+#pragma mark - 初始化controller
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
 	self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -320,7 +327,8 @@ static NSString *WDAttachmentNotification = @"WDAttachmentNotification";
     [self.navigationController setToolbarHidden:YES animated:NO];
     
     NSUInteger currentCenteredIndex = [gridView approximateIndexOfCenter];
-    if (centeredIndex != 0 && centeredIndex != currentCenteredIndex) {
+    if (centeredIndex != 0 && centeredIndex != currentCenteredIndex)
+    {
         [self.gridView centerIndex:centeredIndex];
     }
 }
@@ -337,7 +345,7 @@ static NSString *WDAttachmentNotification = @"WDAttachmentNotification";
                                               otherButtonTitles:nil];
     [alertView show];
 }
-
+#pragma mark - 打开保存的snapshot
 - (void) openDocument:(WDDocument *)document editing:(BOOL)editing
 {
     WDCanvasController *canvasController = [[WDCanvasController alloc] init];
@@ -373,17 +381,22 @@ static NSString *WDAttachmentNotification = @"WDAttachmentNotification";
     }
 }
 
+#pragma mark - 点击首页的snapshot
 - (void) tappedOnPainting:(id)sender
 {
-    if (editingThumbnail_) {
+    if (editingThumbnail_)
+    {
         return;
     }
     
-    if (!self.isEditing) {
+    if (!self.isEditing)//WDPaintingManager
+    {
         NSUInteger index = [(UIView *)sender tag];
         WDDocument *document = [[WDPaintingManager sharedInstance] paintingAtIndex:index];
         [self openDocument:document editing:NO];
-    } else {
+    }
+    else
+    {
         WDThumbnailView     *thumbnail = (WDThumbnailView *)sender;
         NSString            *filename = [[WDPaintingManager sharedInstance] fileAtIndex:[thumbnail tag]];
         
@@ -418,6 +431,8 @@ static NSString *WDAttachmentNotification = @"WDAttachmentNotification";
     centeredIndex = 0;
 }
 
+#pragma mark - gridview dataSource
+
 - (NSInteger) cellDimension
 {
     return self.runningOnPhone ? 96 : 235; // 148 for big thumbs on the iPhone
@@ -447,6 +462,8 @@ static NSString *WDAttachmentNotification = @"WDAttachmentNotification";
     return thumbview;
 }
 
+// This is where subclasses should create their custom view hierarchy if they aren't using a nib. Should never be called directly.
+#pragma mark - 加载视图
 - (void)loadView
 {
     CGRect frame = [[UIScreen mainScreen] bounds];
@@ -508,9 +525,12 @@ static NSString *WDAttachmentNotification = @"WDAttachmentNotification";
     editingThumbnail_ = nil;
 }
 
+#pragma mark - keyboard will show
+
 - (void) keyboardWillShow:(NSNotification *)aNotification
 {
-    if (!editingThumbnail_ || blockingView_) {
+    if (!editingThumbnail_ || blockingView_)
+    {
         return;
     }
     
@@ -561,7 +581,7 @@ static NSString *WDAttachmentNotification = @"WDAttachmentNotification";
     [savingPaintings removeObject:doc.displayName];
     [thumbview stopActivity];
 }
-
+#pragma mark - 通知中心 通知事件
 - (void) paintingAdded:(NSNotification *)aNotification
 {
     [gridView setNeedsLayout];
@@ -721,7 +741,8 @@ static NSString *WDAttachmentNotification = @"WDAttachmentNotification";
 - (void) emailAttached:(NSNotification *)aNotification
 {
     WDEmail *email = aNotification.object;
-    if (++email.completeAttachments == email.expectedAttachments) {
+    if (++email.completeAttachments == email.expectedAttachments)
+    {
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.navigationController presentModalViewController:email.picker animated:YES];
         });

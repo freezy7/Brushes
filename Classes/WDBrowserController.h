@@ -55,7 +55,7 @@
 @property (nonatomic, readonly) NSInteger thumbnailDimension;
 @property (nonatomic, weak) UIViewController *currentPopoverViewController;
 @property (nonatomic) UIActivityIndicatorView *activityIndicator;
-@property (nonatomic) WDGridView *gridView;
+@property (nonatomic) WDGridView *gridView;//主页面列表视图 scrollView
 
 - (void) openDocument:(WDDocument *)document editing:(BOOL)editing;
 - (void) showOpenFailure:(WDDocument *)document;

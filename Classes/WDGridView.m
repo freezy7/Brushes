@@ -83,6 +83,7 @@
 - (void)registerClass:(Class)cellClass forCellWithReuseIdentifier:(NSString *)identifier
 {
     [self cellClassMap][identifier] = cellClass;
+    NSLog(@"cellClassMap = %@",cellClassMap_);
 }
 
 - (id)dequeueReusableCellWithReuseIdentifier:(NSString *)identifier forIndex:(NSUInteger)index
@@ -133,9 +134,12 @@
 {
     NSInteger numItems = [dataSource numberOfItemsInGridView:self];
     
-    if ((index >= numItems) || (numItems <= ([self cellsPerRow] * [self rowsThatFit]))) {
+    if ((index >= numItems) || (numItems <= ([self cellsPerRow] * [self rowsThatFit])))
+    {
         [self scrollToBottom];
-    } else {
+    }
+    else
+    {
         CGPoint offset = [self centeredFrameForIndex:index].origin;
         [self setContentOffset:CGPointMake(0, offset.y)];
     }

@@ -15,6 +15,7 @@
 #import "WDUtilities.h"
 #include <CommonCrypto/CommonHMAC.h>
 #include <sys/sysctl.h>
+#import "Shaders.h"
 
 #define kMiterLimit 10
 
@@ -502,6 +503,8 @@ CGAffineTransform WDTransformForOrientation(UIInterfaceOrientation orientation)
         case UIInterfaceOrientationLandscapeRight:
             transform = CGAffineTransformRotate(transform, M_PI / 2);
             break;
+            default:
+            break;
     }
     
     return transform;
@@ -513,7 +516,7 @@ float WDRandomFloat()
     return r / 10000.0f;
 }
 
-int WDRandomIntInRange(int min, int max)
+int WDRandomIntInRange(NSUInteger min, NSUInteger max)
 {
     return min + WDRandomFloat() * (max - min);
 }
@@ -620,17 +623,20 @@ CGPathRef WDQuadCreatePathRef(WDQuad q)
     return pathRef;
 }
 
-void WDCheckGLError_(const char* file, int line) {
+void WDCheckGLError_(const char* file, int line)
+{
     GLenum error = glGetError();
-    if (error) {
+    if (error)
+    {
         NSString *message;
-        switch (error) {
+        switch (error)
+        {
             case GL_INVALID_ENUM: message = @"invalid enum"; break;
             case GL_INVALID_FRAMEBUFFER_OPERATION: message = @"invalid framebuffer operation"; break;
             case GL_INVALID_OPERATION: message = @"invalid operation"; break;
             case GL_INVALID_VALUE: message = @"invalid value"; break;
             case GL_OUT_OF_MEMORY: message = @"out of memory"; break;
-            default: message = [NSString stringWithFormat:@"unknown error: 0x%x", error];
+            default: message = [NSString stringWithFormat:@"unknown error: 0x%x", error]; break;
         }
         WDLog(@"ERROR: glGetError returned: %@ at %s:%d", message, file, line);
     }
